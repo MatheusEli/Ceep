@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import br.com.alura.ceep.R;
-//LISTA NOTAS ACTIVITY
 
 public class ListaNotasActivity extends AppCompatActivity {
 
