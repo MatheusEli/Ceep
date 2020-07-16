@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,19 +34,22 @@ public class ListaNotasActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(ListaNotasActivity.this,FormularioNotaActivity.class);
-                startActivity(intent);
+        Intent intent = new Intent(ListaNotasActivity.this,FormularioNotaActivity.class);
+        startActivityForResult(intent,1);
             }
         });
     }
 
     @Override
-    protected void onResume() {
-        NotaDAO dao = new NotaDAO();
-        listaNotas.clear();
-        listaNotas.addAll(dao.todos());
-        adapter.notifyDataSetChanged();
-        super.onResume();
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(data.hasExtra("nota") && requestCode == 1 && resultCode == 2){
+
+            Nota notaRecebida = (Nota) data.getSerializableExtra("nota");
+            NotaDAO dao = new NotaDAO();
+            dao.insere(notaRecebida);
+            adapter.adiciona(notaRecebida);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private List<Nota> notasDeExemplo() {
@@ -63,4 +67,5 @@ public class ListaNotasActivity extends AppCompatActivity {
         adapter = new ListaNotasAdapter(this, listaNotas);
         recyclerView.setAdapter(adapter);
     }
+
 }
