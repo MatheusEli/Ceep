@@ -31,16 +31,13 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
     public NotaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View viewCriada = LayoutInflater.from(context).inflate(R.layout.item_nota, parent, false);
-
         return new NotaViewHolder(viewCriada);
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull NotaViewHolder holder, int position) {
-        quantidadeHolderCriadas++;
         Nota nota = notas.get(position);
-        Log.i("LOGI", "quantidade view holders criadas: "+quantidadeHolderCriadas);
         holder.vincula(nota);
     }
 
