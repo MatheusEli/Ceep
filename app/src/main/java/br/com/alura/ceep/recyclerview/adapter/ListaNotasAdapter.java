@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import javax.security.auth.login.LoginException;
+
 import br.com.alura.ceep.R;
 import br.com.alura.ceep.model.Nota;
 
@@ -19,7 +21,7 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
 
     private final List<Nota> notas;
     private final Context context;
-    private int quantidadeHolderCriadas = 0;
+    private int qtdHolderViewsCriadas = 0;
 
     public ListaNotasAdapter(Context context, List<Nota> notas) {
         this.context = context;
@@ -28,11 +30,12 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
 
     @NonNull
     @Override
-    public NotaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ListaNotasAdapter.NotaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
+        qtdHolderViewsCriadas++;
         View viewCriada = LayoutInflater.from(context).inflate(R.layout.item_nota, parent, false);
+        Log.i("HOLDERVIEW", "onCreateViewHolder: " +qtdHolderViewsCriadas);
         return new NotaViewHolder(viewCriada);
-
     }
 
     @Override

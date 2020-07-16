@@ -55,14 +55,16 @@ public class ListaNotasActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(eUmResultadoComNota(requestCode, resultCode, data)){
-
-            Nota notaRecebida = (Nota) data.getSerializableExtra(CHAVE_NOTA);
-            NotaDAO dao = new NotaDAO();
-            dao.insere(notaRecebida);
-            adapter.adiciona(notaRecebida);
-        }
         super.onActivityResult(requestCode, resultCode, data);
+        if(eUmResultadoComNota(requestCode, resultCode, data)){
+            Nota notaRecebida = (Nota) data.getSerializableExtra(CHAVE_NOTA);
+            adiciona(notaRecebida);
+        }
+    }
+
+    private void adiciona(Nota nota) {
+        new NotaDAO().insere(nota);
+        adapter.adiciona(nota);
     }
 
     private boolean eUmResultadoComNota(int requestCode, int resultCode, @Nullable Intent data) {

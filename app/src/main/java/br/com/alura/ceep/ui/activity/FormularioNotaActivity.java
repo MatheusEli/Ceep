@@ -51,8 +51,6 @@ public class FormularioNotaActivity extends AppCompatActivity {
     private Nota criaNota() {
         EditText titulo = findViewById(R.id.formulario_nota_titulo);
         EditText descricao = findViewById(R.id.formulario_nota_descricao);
-
-        NotaDAO dao = new NotaDAO();
         return new Nota(titulo.getText().toString(), descricao.getText().toString());
     }
 
