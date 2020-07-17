@@ -28,11 +28,14 @@ public class ListaNotasActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_lista_notas);
         List<Nota> listaNotas = pegaTodasNotas();
         configuraRecyclerView(listaNotas);
         configuraBotaoInsereNota();
+
     }
 
     private void configuraBotaoInsereNota() {
@@ -66,9 +69,11 @@ public class ListaNotasActivity extends AppCompatActivity {
             adiciona(notaRecebida);
         }
 
-        if (requestCode == 2 && resultCode == CODIGO_RESULTADO_NOTA_CRIADA && data.hasExtra(CHAVE_NOTA)){
+        if (requestCode == 2 && resultCode == CODIGO_RESULTADO_NOTA_CRIADA && data.hasExtra(CHAVE_NOTA)  &&  data.hasExtra("posicao")){
             Nota notaRecebida = (Nota) data.getSerializableExtra(CHAVE_NOTA);
-            Toast.makeText(this, notaRecebida.getTitulo()+ " foi clicado!", Toast.LENGTH_SHORT).show();
+            int posicao = data.getIntExtra("posicao", -1);
+            new NotaDAO().altera(posicao, notaRecebida);
+            adapter.altera(posicao, notaRecebida);
         }
     }
 
@@ -104,9 +109,10 @@ public class ListaNotasActivity extends AppCompatActivity {
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(Nota nota) {
+            public void onItemClick(Nota nota, int posicao) {
                 Intent intent = new Intent(ListaNotasActivity.this, FormularioNotaActivity.class);
                 intent.putExtra(CHAVE_NOTA, nota);
+                intent.putExtra("posicao", posicao);
                 startActivityForResult(intent, 2);
             }
         });

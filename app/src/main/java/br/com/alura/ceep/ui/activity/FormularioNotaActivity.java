@@ -21,15 +21,18 @@ import static br.com.alura.ceep.ui.activity.NotaActivityConstantes.CODIGO_RESULT
 public class FormularioNotaActivity extends AppCompatActivity {
 
 
+    private int posicaoRecebida;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_nota);
 
         Intent dadosRecebidos = getIntent();
-        if(dadosRecebidos.hasExtra(CHAVE_NOTA)){
+        if(dadosRecebidos.hasExtra(CHAVE_NOTA)  &&  dadosRecebidos.hasExtra("posicao")){
 
             Nota notaRecebida = (Nota) dadosRecebidos.getSerializableExtra(CHAVE_NOTA);
+            posicaoRecebida = dadosRecebidos.getIntExtra("posicao", -1);
             TextView titulo = findViewById(R.id.formulario_nota_titulo);
             TextView descricao = findViewById(R.id.formulario_nota_descricao);
 
@@ -58,6 +61,7 @@ public class FormularioNotaActivity extends AppCompatActivity {
     private void retornaNota(Nota nota) {
         Intent intentResult = new Intent();
         intentResult.putExtra(CHAVE_NOTA, nota);
+        intentResult.putExtra("posicao" , posicaoRecebida);
         setResult(CODIGO_RESULTADO_NOTA_CRIADA,intentResult);
     }
 
