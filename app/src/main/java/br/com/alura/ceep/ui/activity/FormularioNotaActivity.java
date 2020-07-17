@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.Serializable;
+
 import br.com.alura.ceep.R;
-import br.com.alura.ceep.dao.NotaDAO;
 import br.com.alura.ceep.model.Nota;
 
 import static br.com.alura.ceep.ui.activity.NotaActivityConstantes.CHAVE_NOTA;
@@ -23,6 +25,17 @@ public class FormularioNotaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_nota);
+
+        Intent dadosRecebidos = getIntent();
+        if(dadosRecebidos.hasExtra(CHAVE_NOTA)){
+
+            Nota notaRecebida = (Nota) dadosRecebidos.getSerializableExtra(CHAVE_NOTA);
+            TextView titulo = findViewById(R.id.formulario_nota_titulo);
+            TextView descricao = findViewById(R.id.formulario_nota_descricao);
+
+            titulo.setText(notaRecebida.getTitulo());
+            descricao.setText(notaRecebida.getDescricao());
+        }
     }
 
     @Override
