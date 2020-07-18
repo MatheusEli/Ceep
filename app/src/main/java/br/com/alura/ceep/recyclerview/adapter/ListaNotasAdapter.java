@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Collections;
 import java.util.List;
 
 import br.com.alura.ceep.R;
@@ -53,6 +54,16 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
 
         notas.set(posicao, nota);
         notifyDataSetChanged();
+    }
+
+    public void remove(int posicao) {
+        notas.remove(posicao);
+        notifyItemRemoved(posicao);
+    }
+
+    public void troca(int posicao1, int posicao2) {
+        Collections.swap(notas, posicao1, posicao2);
+        notifyItemMoved(posicao1,posicao2);
     }
 
     public class NotaViewHolder extends RecyclerView.ViewHolder {
