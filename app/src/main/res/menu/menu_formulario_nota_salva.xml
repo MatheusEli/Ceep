@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/menu_formulario_nota_ic_salva"
-        android:title="Salvar nota"
+        android:title="@string/salvar_nota"
         android:icon="@drawable/ic_action_salva_nota"
         app:showAsAction="always"/>
 </menu>

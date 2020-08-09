@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Ceep</string>
+    <string name="linear_layout">Linear Layout</string>
+    <string name="salvar_nota">Salvar nota</string>
 </resources>
