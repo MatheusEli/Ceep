@@ -1,42 +1,23 @@
 package br.com.alura.ceep.model;
 
-public enum Cores {
-    AZUL,BRANCO,VERMELHO,VERDE,AMARELO,LILAS,CINZA,MARROM,ROXO;
+import android.graphics.drawable.Drawable;
+
+public class Cores {
+
+    private String nome;
+    private Drawable cor;
 
 
-    public String getAzul(){
-        return "#408EC9";
+    public Cores(String nome, int cor) {
+        this.nome = nome;
+        this.cor = cor;
     }
 
-    public String getBranco(){
-        return "#FFFFFF";
+    public String getNome() {
+        return nome;
     }
 
-    public String getVermelho(){
-        return "#EC2F4B";
-    }
-
-    public String getVerde(){
-        return "#9ACD32";
-    }
-
-    public String getAmarelo(){
-        return "#F9F256";
-    }
-
-    public String getLilas(){
-        return "#F1CBFF";
-    }
-
-    public String getCinza(){
-        return "#D2D4DC";
-    }
-
-    public String getMarrom(){
-        return "#A47C48";
-    }
-
-    public String getRoxo(){
-        return "#BE29EC";
+    public Drawable getCor() {
+        return cor;
     }
 }
