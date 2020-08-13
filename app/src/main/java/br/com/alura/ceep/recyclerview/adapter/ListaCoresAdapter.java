@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -14,12 +13,12 @@ import java.util.List;
 
 import br.com.alura.ceep.R;
 import br.com.alura.ceep.model.Cores;
-import br.com.alura.ceep.model.Nota;
 
 public class ListaCoresAdapter extends RecyclerView.Adapter<ListaCoresAdapter.CorViewHolder> {
 
     private Context context;
     private final List<Cores> cores;
+    private OnItemClickListenerCores onItemClickListener;
 
     public ListaCoresAdapter(Context context, List<Cores> cores) {
         this.context = context;
@@ -44,6 +43,11 @@ public class ListaCoresAdapter extends RecyclerView.Adapter<ListaCoresAdapter.Co
         return cores.size();
     }
 
+
+    public void setOnItemClickListener(OnItemClickListenerCores onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     public class CorViewHolder extends RecyclerView.ViewHolder {
 
         private final CardView circulo;
@@ -52,6 +56,13 @@ public class ListaCoresAdapter extends RecyclerView.Adapter<ListaCoresAdapter.Co
         public CorViewHolder(@NonNull View itemView) {
             super(itemView);
             circulo = itemView.findViewById(R.id.item_circulo_cor);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClickListener.onItemClick(cor,cor.getNome());
+                }
+            });
 
         }
 
@@ -65,5 +76,10 @@ public class ListaCoresAdapter extends RecyclerView.Adapter<ListaCoresAdapter.Co
 
         cores.add(cor);
         notifyDataSetChanged();
+    }
+
+    public interface OnItemClickListenerCores {
+
+        void onItemClick(Cores cor, String nome);
     }
 }

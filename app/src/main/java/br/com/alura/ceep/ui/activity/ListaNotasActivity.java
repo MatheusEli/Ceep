@@ -3,6 +3,7 @@ package br.com.alura.ceep.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,6 +42,7 @@ public class ListaNotasActivity extends AppCompatActivity {
     private MenuItem gridIcon;
     private MenuItem linearIcon;
     private RecyclerView recyclerView;
+    private Drawable corNota;
     private SharedPreferences shared;
     private SharedPreferences.Editor editor;
 
@@ -162,6 +164,11 @@ public class ListaNotasActivity extends AppCompatActivity {
 
 
         }
+        if(data.hasExtra("Cor Nota")){
+
+            corNota = (Drawable) data.getSerializableExtra("Cor Nota");
+        }
+
     }
 
     private void altera(Nota nota, int posicao) {
