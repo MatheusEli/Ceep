@@ -40,7 +40,7 @@ public class FormularioNotaActivity extends AppCompatActivity {
     private ListaCoresAdapter adapter;
     private List<Cores> listaCores;
     private ConstraintLayout telaFormulario;
-    private Drawable corNota;
+    private int corNotaRes;
     private CorDAO dao;
 
     @Override
@@ -49,6 +49,7 @@ public class FormularioNotaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_formulario_nota);
         recyclerViewCores = findViewById(R.id.formulario_lista_cores_recyclerview);
         telaFormulario = findViewById(R.id.formulario_nota_constraint_layout);
+        corNotaRes = R.drawable.fundo_branco_drawable;
         dao = new CorDAO();
         setTitle(TITULO_APPBAR_INSERE);
         preencheListaCores();
@@ -79,11 +80,15 @@ public class FormularioNotaActivity extends AppCompatActivity {
         Drawable marromDrawable = ResourcesCompat.getDrawable(res, R.drawable.fundo_marrom_drawable, null);
         Drawable roxoDrawable = ResourcesCompat.getDrawable(res, R.drawable.fundo_roxo_drawable, null);
 
-        dao.insere(new Cores("AZUL", azulDrawable), new Cores("BRANCO", brancoDrawable), new Cores("VERMELHO", vermelhoDrawable),
-        new Cores("VERDE", verdeDrawable),new Cores("AMARELO", amareloDrawable),new Cores("LILAS", lilasDrawable),new Cores("CINZA", cinzaDrawable),
-                new Cores("MARROM", marromDrawable),new Cores("ROXO", roxoDrawable));
-
-        corNota = brancoDrawable;
+        dao.insere(new Cores("AZUL", azulDrawable,R.drawable.fundo_azul_drawable),
+                    new Cores("BRANCO", brancoDrawable, R.drawable.fundo_branco_drawable),
+                    new Cores("VERMELHO", vermelhoDrawable, R.drawable.fundo_vermelho_drawable),
+                    new Cores("VERDE", verdeDrawable, R.drawable.fundo_verde_drawable),
+                    new Cores("AMARELO", amareloDrawable, R.drawable.fundo_amarelo_drawable),
+                    new Cores("LILAS", lilasDrawable, R.drawable.fundo_lilas_drawable),
+                    new Cores("CINZA", cinzaDrawable, R.drawable.fundo_cinza_drawable),
+                    new Cores("MARROM", marromDrawable, R.drawable.fundo_marrom_drawable),
+                    new Cores("ROXO", roxoDrawable, R.drawable.fundo_roxo_drawable));
 
     }
 
@@ -109,6 +114,7 @@ public class FormularioNotaActivity extends AppCompatActivity {
         if(eMenuSalvaNota(item)){
 
             Nota notaCriada = criaNota();
+            notaCriada.setCorRes(corNotaRes);
             retornaNota(notaCriada);
             finish();
         }
@@ -119,7 +125,6 @@ public class FormularioNotaActivity extends AppCompatActivity {
         Intent intentResult = new Intent();
         intentResult.putExtra(CHAVE_NOTA, nota);
         intentResult.putExtra(CHAVE_POSICAO , posicaoRecebida);
-        intentResult.putExtra("Cor nota", (Parcelable) corNota);
         setResult(Activity.RESULT_OK,intentResult);
     }
 
@@ -139,7 +144,7 @@ public class FormularioNotaActivity extends AppCompatActivity {
             @Override
             public void onItemClick(Cores cor, String nome) {
                 telaFormulario.setBackground(cor.getCor());
-                corNota = cor.getCor();
+                corNotaRes = cor.getCorRes();
             }
         });
     }

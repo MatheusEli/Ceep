@@ -1,15 +1,11 @@
 package br.com.alura.ceep.dao;
 
-import android.graphics.drawable.Drawable;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import br.com.alura.ceep.R;
 import br.com.alura.ceep.model.Cores;
-import br.com.alura.ceep.model.Nota;
 
 public class CorDAO {
 

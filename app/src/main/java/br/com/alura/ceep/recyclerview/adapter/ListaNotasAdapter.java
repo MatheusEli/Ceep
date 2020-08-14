@@ -1,12 +1,14 @@
 package br.com.alura.ceep.recyclerview.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Collections;
@@ -20,11 +22,13 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
 
     private final List<Nota> notas;
     private final Context context;
+    private final Resources res;
     private OnItemClickListener onItemClickListener;
 
     public ListaNotasAdapter(Context context, List<Nota> notas) {
         this.context = context;
         this.notas = notas;
+        res = context.getResources();
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
@@ -70,17 +74,20 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
 
         private final TextView titulo;
         private final TextView descricao;
+        private final CardView cardNota;
         private Nota nota;
 
         public NotaViewHolder(@NonNull View itemView) {
             super(itemView);
             titulo = itemView.findViewById(R.id.item_nota_titulo);
             descricao = itemView.findViewById(R.id.item_nota_descricao);
+            cardNota = itemView.findViewById(R.id.item_nota_constraint_layout);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     onItemClickListener.onItemClick(nota, getAdapterPosition());
+
                 }
             });
         }
@@ -94,6 +101,7 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
         private void preencheCampos(Nota nota) {
             titulo.setText(nota.getTitulo());
             descricao.setText(nota.getDescricao());
+            cardNota.setBackgroundResource(nota.getCorRes());
         }
     }
 

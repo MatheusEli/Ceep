@@ -8,11 +8,12 @@ public class Cores implements Serializable {
 
     private String nome;
     private Drawable cor;
+    private int corRes;
 
-
-    public Cores(String nome, Drawable cor) {
+    public Cores(String nome, Drawable cor, int corRes) {
         this.nome = nome;
         this.cor = cor;
+        this.corRes = corRes;
     }
 
     public String getNome() {
@@ -21,5 +22,9 @@ public class Cores implements Serializable {
 
     public Drawable getCor() {
         return cor;
+    }
+
+    public int getCorRes() {
+        return corRes;
     }
 }
