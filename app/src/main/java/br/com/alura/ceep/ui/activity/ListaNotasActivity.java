@@ -42,7 +42,7 @@ public class ListaNotasActivity extends AppCompatActivity {
     private MenuItem gridIcon;
     private MenuItem linearIcon;
     private RecyclerView recyclerView;
-    private Drawable corNota;
+    private int corNota;
     private SharedPreferences shared;
     private SharedPreferences.Editor editor;
 
@@ -163,10 +163,6 @@ public class ListaNotasActivity extends AppCompatActivity {
             }
 
 
-        }
-        if(data.hasExtra("Cor Nota")){
-
-            corNota = (Drawable) data.getSerializableExtra("Cor Nota");
         }
 
     }

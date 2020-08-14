@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -118,7 +119,7 @@ public class FormularioNotaActivity extends AppCompatActivity {
         Intent intentResult = new Intent();
         intentResult.putExtra(CHAVE_NOTA, nota);
         intentResult.putExtra(CHAVE_POSICAO , posicaoRecebida);
-        intentResult.putExtra("Cor Nota", (Serializable) corNota);
+        intentResult.putExtra("Cor nota", (Parcelable) corNota);
         setResult(Activity.RESULT_OK,intentResult);
     }
 
