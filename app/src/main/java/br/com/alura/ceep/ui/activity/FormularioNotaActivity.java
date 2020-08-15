@@ -47,10 +47,12 @@ public class FormularioNotaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_nota);
+
         recyclerViewCores = findViewById(R.id.formulario_lista_cores_recyclerview);
         telaFormulario = findViewById(R.id.formulario_nota_constraint_layout);
         corNotaRes = R.drawable.fundo_branco_drawable;
         dao = new CorDAO();
+
         setTitle(TITULO_APPBAR_INSERE);
         preencheListaCores();
         listaCores = dao.todos();
@@ -70,15 +72,15 @@ public class FormularioNotaActivity extends AppCompatActivity {
 
         Resources res = getResources();
 
-        Drawable azulDrawable = ResourcesCompat.getDrawable(res, R.drawable.fundo_azul_drawable, null);
-        Drawable brancoDrawable = ResourcesCompat.getDrawable(res, R.drawable.fundo_branco_drawable, null);
-        Drawable vermelhoDrawable = ResourcesCompat.getDrawable(res, R.drawable.fundo_vermelho_drawable, null);
-        Drawable verdeDrawable = ResourcesCompat.getDrawable(res, R.drawable.fundo_verde_drawable, null);
-        Drawable amareloDrawable = ResourcesCompat.getDrawable(res, R.drawable.fundo_amarelo_drawable, null);
-        Drawable lilasDrawable = ResourcesCompat.getDrawable(res, R.drawable.fundo_lilas_drawable, null);
-        Drawable cinzaDrawable = ResourcesCompat.getDrawable(res, R.drawable.fundo_cinza_drawable, null);
-        Drawable marromDrawable = ResourcesCompat.getDrawable(res, R.drawable.fundo_marrom_drawable, null);
-        Drawable roxoDrawable = ResourcesCompat.getDrawable(res, R.drawable.fundo_roxo_drawable, null);
+        Drawable azulDrawable = getDrawable(res, R.drawable.fundo_azul_drawable);
+        Drawable brancoDrawable = getDrawable(res, R.drawable.fundo_branco_drawable);
+        Drawable vermelhoDrawable = getDrawable(res, R.drawable.fundo_vermelho_drawable);
+        Drawable verdeDrawable = getDrawable(res, R.drawable.fundo_verde_drawable);
+        Drawable amareloDrawable = getDrawable(res, R.drawable.fundo_amarelo_drawable);
+        Drawable lilasDrawable = getDrawable(res, R.drawable.fundo_lilas_drawable);
+        Drawable cinzaDrawable = getDrawable(res, R.drawable.fundo_cinza_drawable);
+        Drawable marromDrawable = getDrawable(res, R.drawable.fundo_marrom_drawable);
+        Drawable roxoDrawable = getDrawable(res, R.drawable.fundo_roxo_drawable);
 
         dao.insere(new Cores("AZUL", azulDrawable,R.drawable.fundo_azul_drawable),
                     new Cores("BRANCO", brancoDrawable, R.drawable.fundo_branco_drawable),
@@ -92,12 +94,16 @@ public class FormularioNotaActivity extends AppCompatActivity {
 
     }
 
+    private Drawable getDrawable(Resources res, int p) {
+        return ResourcesCompat.getDrawable(res, p, null);
+    }
+
 
     private void preencheCampos(Nota notaRecebida) {
         titulo.setText(notaRecebida.getTitulo());
         descricao.setText(notaRecebida.getDescricao());
         corNotaRes = notaRecebida.getCorRes();
-        telaFormulario.setBackground(ResourcesCompat.getDrawable(getResources(), notaRecebida.getCorRes(), null));
+        telaFormulario.setBackground(getDrawable(getResources(), notaRecebida.getCorRes()));
     }
 
     private void inicializaCampos() {

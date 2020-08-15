@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.activity.FormularioNotaActivity"></activity>
-        <activity android:name=".ui.activity.ListaNotasActivity">
+        <activity android:name=".ui.activity.ListaNotasActivity"></activity>
+        <activity android:name=".ui.activity.SplashScreenActivity" android:theme = "@style/AlertDialog.AppCompat.TelaCheia">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
