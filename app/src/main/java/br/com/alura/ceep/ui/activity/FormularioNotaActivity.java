@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Parcelable;
+import android.os.PersistableBundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -16,7 +16,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.Serializable;
 import java.util.List;
 
 import br.com.alura.ceep.R;
@@ -42,6 +41,7 @@ public class FormularioNotaActivity extends AppCompatActivity {
     private ConstraintLayout telaFormulario;
     private int corNotaRes;
     private CorDAO dao;
+    private Nota notaRecebida;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class FormularioNotaActivity extends AppCompatActivity {
         Intent dadosRecebidos = getIntent();
         if(dadosRecebidos.hasExtra(CHAVE_NOTA)){
             setTitle(TITULO_APPBAR_ALTERA);
-            Nota notaRecebida = (Nota) dadosRecebidos.getSerializableExtra(CHAVE_NOTA);
+            notaRecebida = (Nota) dadosRecebidos.getSerializableExtra(CHAVE_NOTA);
             posicaoRecebida = dadosRecebidos.getIntExtra(CHAVE_POSICAO, POSICAO_INVALIDA);
             preencheCampos(notaRecebida);
         }
@@ -96,6 +96,8 @@ public class FormularioNotaActivity extends AppCompatActivity {
     private void preencheCampos(Nota notaRecebida) {
         titulo.setText(notaRecebida.getTitulo());
         descricao.setText(notaRecebida.getDescricao());
+        corNotaRes = notaRecebida.getCorRes();
+        telaFormulario.setBackground(ResourcesCompat.getDrawable(getResources(), notaRecebida.getCorRes(), null));
     }
 
     private void inicializaCampos() {
@@ -147,5 +149,19 @@ public class FormularioNotaActivity extends AppCompatActivity {
                 corNotaRes = cor.getCorRes();
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        outState.putSerializable("NOTA",notaRecebida);
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        // Always call the superclass so it can restore the view hierarchy
+        super.onRestoreInstanceState(savedInstanceState);
+
+        // Restore state members from saved instance
+         notaRecebida = (Nota) savedInstanceState.getSerializable("NOTA");
     }
 }
