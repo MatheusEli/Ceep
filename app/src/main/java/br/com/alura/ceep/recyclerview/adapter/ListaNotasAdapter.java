@@ -16,7 +16,6 @@ import java.util.List;
 
 import br.com.alura.ceep.R;
 import br.com.alura.ceep.model.Nota;
-import br.com.alura.ceep.recyclerview.adapter.listener.OnItemClickListener;
 
 public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.NotaViewHolder> {
 
@@ -110,4 +109,12 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
         notas.add(nota);
         notifyDataSetChanged();
     }
+
+    public interface OnItemClickListener {
+
+        void onItemClick(Nota nota, int posicao);
+    }
 }
+
+
+

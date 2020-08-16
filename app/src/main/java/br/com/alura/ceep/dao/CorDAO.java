@@ -2,7 +2,6 @@ package br.com.alura.ceep.dao;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import br.com.alura.ceep.model.Cores;
@@ -19,26 +18,6 @@ public class CorDAO {
     public void insere(Cores... cores) {
 
         CorDAO.cores.addAll(Arrays.asList(cores));
-    }
-
-    public void altera(int posicao, Cores cor) {
-
-        cores.set(posicao, cor);
-    }
-
-    public void remove(int posicao) {
-
-        cores.remove(posicao);
-    }
-
-    public void troca(int posicaoInicio, int posicaoFim) {
-
-        Collections.swap(cores, posicaoInicio, posicaoFim);
-    }
-
-    public void removeTodos() {
-
-        cores.clear();
     }
 
 }

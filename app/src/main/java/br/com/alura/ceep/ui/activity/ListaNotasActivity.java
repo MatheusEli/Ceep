@@ -3,7 +3,6 @@ package br.com.alura.ceep.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,7 +23,6 @@ import br.com.alura.ceep.R;
 import br.com.alura.ceep.dao.NotaDAO;
 import br.com.alura.ceep.model.Nota;
 import br.com.alura.ceep.recyclerview.adapter.ListaNotasAdapter;
-import br.com.alura.ceep.recyclerview.adapter.listener.OnItemClickListener;
 import br.com.alura.ceep.recyclerview.helper.callback.NotaItemTouchHelperCallback;
 
 import static br.com.alura.ceep.ui.activity.NotaActivityConstantes.CHAVE_NOTA;
@@ -219,7 +217,7 @@ public class ListaNotasActivity extends AppCompatActivity {
         adapter = new ListaNotasAdapter(this, listaNotas);
         recyclerView.setAdapter(adapter);
 
-        adapter.setOnItemClickListener(new OnItemClickListener() {
+        adapter.setOnItemClickListener(new ListaNotasAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Nota nota, int posicao) {
                 vaiParaFormlarioNotaActivityAltera(nota, posicao);
