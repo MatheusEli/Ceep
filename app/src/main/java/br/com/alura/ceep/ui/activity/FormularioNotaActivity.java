@@ -19,8 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import br.com.alura.ceep.R;
-import br.com.alura.ceep.dao.CorDAO;
-import br.com.alura.ceep.model.Cores;
+import br.com.alura.ceep.database.dao.CorDAO;
+import br.com.alura.ceep.model.Cor;
 import br.com.alura.ceep.model.Nota;
 import br.com.alura.ceep.recyclerview.adapter.ListaCoresAdapter;
 
@@ -37,7 +37,7 @@ public class FormularioNotaActivity extends AppCompatActivity {
     private TextView descricao;
     private RecyclerView recyclerViewCores;
     private ListaCoresAdapter adapter;
-    private List<Cores> listaCores;
+    private List<Cor> listaCores;
     private ConstraintLayout telaFormulario;
     private int corNotaRes;
     private CorDAO dao;
@@ -82,15 +82,15 @@ public class FormularioNotaActivity extends AppCompatActivity {
         Drawable marromDrawable = getDrawable(res, R.drawable.fundo_marrom_drawable);
         Drawable roxoDrawable = getDrawable(res, R.drawable.fundo_roxo_drawable);
 
-        dao.insere(new Cores("AZUL", azulDrawable,R.drawable.fundo_azul_drawable),
-                    new Cores("BRANCO", brancoDrawable, R.drawable.fundo_branco_drawable),
-                    new Cores("VERMELHO", vermelhoDrawable, R.drawable.fundo_vermelho_drawable),
-                    new Cores("VERDE", verdeDrawable, R.drawable.fundo_verde_drawable),
-                    new Cores("AMARELO", amareloDrawable, R.drawable.fundo_amarelo_drawable),
-                    new Cores("LILAS", lilasDrawable, R.drawable.fundo_lilas_drawable),
-                    new Cores("CINZA", cinzaDrawable, R.drawable.fundo_cinza_drawable),
-                    new Cores("MARROM", marromDrawable, R.drawable.fundo_marrom_drawable),
-                    new Cores("ROXO", roxoDrawable, R.drawable.fundo_roxo_drawable));
+        dao.insere(new Cor("AZUL", azulDrawable,R.drawable.fundo_azul_drawable),
+                    new Cor("BRANCO", brancoDrawable, R.drawable.fundo_branco_drawable),
+                    new Cor("VERMELHO", vermelhoDrawable, R.drawable.fundo_vermelho_drawable),
+                    new Cor("VERDE", verdeDrawable, R.drawable.fundo_verde_drawable),
+                    new Cor("AMARELO", amareloDrawable, R.drawable.fundo_amarelo_drawable),
+                    new Cor("LILAS", lilasDrawable, R.drawable.fundo_lilas_drawable),
+                    new Cor("CINZA", cinzaDrawable, R.drawable.fundo_cinza_drawable),
+                    new Cor("MARROM", marromDrawable, R.drawable.fundo_marrom_drawable),
+                    new Cor("ROXO", roxoDrawable, R.drawable.fundo_roxo_drawable));
 
     }
 
@@ -144,13 +144,13 @@ public class FormularioNotaActivity extends AppCompatActivity {
         return item.getItemId() == R.id.menu_formulario_nota_ic_salva;
     }
 
-    private void configuraAdapter(List<Cores> listaCores, RecyclerView recyclerView) {
+    private void configuraAdapter(List<Cor> listaCores, RecyclerView recyclerView) {
         adapter = new ListaCoresAdapter(this, listaCores);
         recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new ListaCoresAdapter.OnItemClickListenerCores() {
             @Override
-            public void onItemClick(Cores cor, String nome) {
+            public void onItemClick(Cor cor, String nome) {
                 telaFormulario.setBackground(cor.getCor());
                 corNotaRes = cor.getCorRes();
             }

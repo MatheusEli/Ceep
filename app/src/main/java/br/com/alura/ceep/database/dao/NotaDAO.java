@@ -1,4 +1,10 @@
-package br.com.alura.ceep.dao;
+package br.com.alura.ceep.database.dao;
+
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 import br.com.alura.ceep.model.Nota;
+
 
 public class NotaDAO {
 
@@ -36,8 +43,4 @@ public class NotaDAO {
         Collections.swap(notas, posicaoInicio, posicaoFim);
     }
 
-    public void removeTodos() {
-
-        notas.clear();
-    }
 }

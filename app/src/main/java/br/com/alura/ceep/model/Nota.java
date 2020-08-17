@@ -1,12 +1,18 @@
 package br.com.alura.ceep.model;
 
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 
 import br.com.alura.ceep.R;
 
+@Entity
 public class Nota implements Serializable {
 
+    @PrimaryKey(autoGenerate = true)
+    private long id = 0;
     private final String titulo;
     private final String descricao;
     private int corRes;
@@ -31,5 +37,13 @@ public class Nota implements Serializable {
 
     public void setCorRes(int corRes) {
         this.corRes = corRes;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
     }
 }
