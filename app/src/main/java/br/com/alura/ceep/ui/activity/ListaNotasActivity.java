@@ -16,11 +16,14 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.room.Room;
 
 import java.util.List;
 
 import br.com.alura.ceep.R;
+import br.com.alura.ceep.database.CeepDataBase;
 import br.com.alura.ceep.database.dao.NotaDAO;
+import br.com.alura.ceep.database.dao.RoomNotaDao;
 import br.com.alura.ceep.model.Nota;
 import br.com.alura.ceep.recyclerview.adapter.ListaNotasAdapter;
 import br.com.alura.ceep.recyclerview.helper.callback.NotaItemTouchHelperCallback;
@@ -43,6 +46,7 @@ public class ListaNotasActivity extends AppCompatActivity {
     private int corNota;
     private SharedPreferences shared;
     private SharedPreferences.Editor editor;
+    private RoomNotaDao dao;
 
 
     @Override
@@ -53,6 +57,9 @@ public class ListaNotasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_notas);
         List<Nota> listaNotas = pegaTodasNotas();
         recyclerView = findViewById(R.id.lista_notas_recyclerview);
+        dao = Room.databaseBuilder
+                (this,CeepDataBase.class, "ceep.db")
+                .build().getNotaDao();
         setTitle(TITULO_APPBAR);
         configuraRecyclerView(listaNotas);
         configuraBotaoInsereNota();
@@ -134,7 +141,6 @@ public class ListaNotasActivity extends AppCompatActivity {
     }
 
     private List<Nota> pegaTodasNotas() {
-        NotaDAO dao = new NotaDAO();
         return dao.todos();
     }
 
@@ -166,7 +172,7 @@ public class ListaNotasActivity extends AppCompatActivity {
     }
 
     private void altera(Nota nota, int posicao) {
-        new NotaDAO().altera(posicao, nota);
+        dao.altera(posicao, nota);
         adapter.altera(posicao, nota);
     }
 
@@ -183,7 +189,7 @@ public class ListaNotasActivity extends AppCompatActivity {
     }
 
     private void adiciona(Nota nota) {
-        new NotaDAO().insere(nota);
+        dao.insere(nota);
         adapter.adiciona(nota);
     }
 
