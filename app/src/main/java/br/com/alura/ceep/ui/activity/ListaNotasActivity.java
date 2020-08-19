@@ -57,8 +57,10 @@ public class ListaNotasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_notas);
         List<Nota> listaNotas = pegaTodasNotas();
         recyclerView = findViewById(R.id.lista_notas_recyclerview);
-        dao = Room.databaseBuilder
+        dao = Room
+                .databaseBuilder
                 (this,CeepDataBase.class, "ceep.db")
+                .allowMainThreadQueries()
                 .build().getNotaDao();
         setTitle(TITULO_APPBAR);
         configuraRecyclerView(listaNotas);
