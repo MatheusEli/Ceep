@@ -174,7 +174,7 @@ public class ListaNotasActivity extends AppCompatActivity {
     }
 
     private void altera(Nota nota, int posicao) {
-        dao.altera(posicao, nota);
+        dao.altera(nota);
         adapter.altera(posicao, nota);
     }
 

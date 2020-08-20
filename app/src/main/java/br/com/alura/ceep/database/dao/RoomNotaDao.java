@@ -23,5 +23,5 @@ public interface RoomNotaDao {
     void remove(int posicao);
 
     @Update
-    void altera(int posicao, Nota nota);
+    void altera(Nota nota);
 }

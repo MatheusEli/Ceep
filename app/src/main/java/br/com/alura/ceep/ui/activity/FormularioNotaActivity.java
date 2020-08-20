@@ -15,11 +15,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import java.util.List;
 
 import br.com.alura.ceep.R;
+import br.com.alura.ceep.database.CeepDataBase;
 import br.com.alura.ceep.database.dao.CorDAO;
+import br.com.alura.ceep.database.dao.RoomCorDao;
 import br.com.alura.ceep.model.Cor;
 import br.com.alura.ceep.model.Nota;
 import br.com.alura.ceep.recyclerview.adapter.ListaCoresAdapter;
@@ -40,7 +43,7 @@ public class FormularioNotaActivity extends AppCompatActivity {
     private List<Cor> listaCores;
     private ConstraintLayout telaFormulario;
     private int corNotaRes;
-    private CorDAO dao;
+    private RoomCorDao dao;
     private Nota notaRecebida;
 
     @Override
@@ -51,7 +54,11 @@ public class FormularioNotaActivity extends AppCompatActivity {
         recyclerViewCores = findViewById(R.id.formulario_lista_cores_recyclerview);
         telaFormulario = findViewById(R.id.formulario_nota_constraint_layout);
         corNotaRes = R.drawable.fundo_branco_drawable;
-        dao = new CorDAO();
+        dao = Room
+                .databaseBuilder
+                        (this, CeepDataBase.class, "ceep.db")
+                .allowMainThreadQueries()
+                .build().getCorDao();
 
         setTitle(TITULO_APPBAR_INSERE);
         preencheListaCores();
