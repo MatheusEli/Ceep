@@ -54,11 +54,7 @@ public class FormularioNotaActivity extends AppCompatActivity {
         recyclerViewCores = findViewById(R.id.formulario_lista_cores_recyclerview);
         telaFormulario = findViewById(R.id.formulario_nota_constraint_layout);
         corNotaRes = R.drawable.fundo_branco_drawable;
-        dao = Room
-                .databaseBuilder
-                        (this, CeepDataBase.class, "ceep.db")
-                .allowMainThreadQueries()
-                .build().getCorDao();
+        dao = CeepDataBase.getInstance(this).getCorDao();
 
         setTitle(TITULO_APPBAR_INSERE);
         preencheListaCores();
