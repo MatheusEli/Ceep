@@ -19,8 +19,6 @@ public interface RoomNotaDao {
     @Query("SELECT * FROM Nota")
     List<Nota> todos();
 
-    @Delete
-    void remove(int posicao);
 
     @Update
     void altera(Nota nota);
