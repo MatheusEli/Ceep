@@ -1,7 +1,6 @@
 package br.com.alura.ceep.database.dao;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -18,7 +17,6 @@ public interface RoomNotaDao {
 
     @Query("SELECT * FROM Nota")
     List<Nota> todos();
-
 
     @Update
     void altera(Nota nota);
