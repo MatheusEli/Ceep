@@ -47,6 +47,7 @@ public class ListaNotasActivity extends AppCompatActivity {
     private SharedPreferences shared;
     private SharedPreferences.Editor editor;
     private RoomNotaDao dao;
+    private int posicaoContador;
 
 
     @Override
@@ -63,6 +64,7 @@ public class ListaNotasActivity extends AppCompatActivity {
         configuraBotaoInsereNota();
         shared = getSharedPreferences(TEXTO_LAYOUT, MODE_PRIVATE);
         editor = shared.edit();
+        posicaoContador = 0;
 
     }
 
@@ -187,8 +189,10 @@ public class ListaNotasActivity extends AppCompatActivity {
     }
 
     private void adiciona(Nota nota) {
+        nota.setPosicao(posicaoContador);
         dao.insere(nota);
         adapter.adiciona(nota);
+        posicaoContador++;
     }
 
     private boolean eUmResultadoInsereNota(int requestCode, @Nullable Intent data) {

@@ -23,7 +23,6 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
     private final Context context;
     private final Resources res;
     private OnItemClickListener onItemClickListener;
-    private int posicaoContador = 0;
 
     public ListaNotasAdapter(Context context, List<Nota> notas) {
         this.context = context;
@@ -106,10 +105,7 @@ public class ListaNotasAdapter extends RecyclerView.Adapter<ListaNotasAdapter.No
     }
 
     public void adiciona(Nota nota){
-
-        nota.setPosicao(posicaoContador);
-        notas.add(posicaoContador,nota);
-        posicaoContador++;
+        notas.add(nota.getPosicao(),nota);
         notifyDataSetChanged();
     }
 

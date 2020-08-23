@@ -17,7 +17,7 @@ public interface RoomNotaDao {
     @Insert
     void insere(Nota... notas);
 
-    @Query("SELECT * FROM Nota ORDER BY posicao ASC")
+    @Query("SELECT * FROM Nota ORDER BY id ASC")
     List<Nota> todos();
 
     @Update(onConflict = OnConflictStrategy.REPLACE)

@@ -22,6 +22,7 @@ public class Nota implements Serializable {
         this.titulo = titulo;
         this.descricao = descricao;
         this.corRes = R.drawable.fundo_branco_drawable;
+        posicao = -1;
     }
 
     public String getTitulo() {
