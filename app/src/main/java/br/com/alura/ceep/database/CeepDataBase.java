@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import br.com.alura.ceep.database.dao.RoomNotaDao;
 import br.com.alura.ceep.model.Nota;
 
-@Database(entities = {Nota.class}, version = 2, exportSchema = false)
+@Database(entities = {Nota.class}, version = 3, exportSchema = false)
 public abstract class CeepDataBase extends RoomDatabase {
 
     private static final String NOME_BANCO_DE_DADOS = "ceep.db";
@@ -19,6 +19,6 @@ public abstract class CeepDataBase extends RoomDatabase {
     public static CeepDataBase getInstance(Context context){
 
         return Room.databaseBuilder(context,CeepDataBase.class, NOME_BANCO_DE_DADOS)
-                .allowMainThreadQueries().build();
+                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
     }
 }

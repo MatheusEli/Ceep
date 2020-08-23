@@ -1,19 +1,27 @@
 package br.com.alura.ceep.recyclerview.helper.callback;
 
+import android.content.Context;
+import android.content.res.Resources;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import br.com.alura.ceep.database.CeepDataBase;
 import br.com.alura.ceep.database.dao.NotaDAO;
+import br.com.alura.ceep.database.dao.RoomNotaDao;
+import br.com.alura.ceep.model.Nota;
 import br.com.alura.ceep.recyclerview.adapter.ListaNotasAdapter;
 
 public class NotaItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
 
     private final ListaNotasAdapter adapter;
+    private RoomNotaDao dao;
 
-    public NotaItemTouchHelperCallback(ListaNotasAdapter adapter) {
+    public NotaItemTouchHelperCallback(ListaNotasAdapter adapter, Context context) {
         this.adapter = adapter;
+        dao = CeepDataBase.getInstance(context).getNotaDao();
     }
 
     @Override
@@ -26,7 +34,9 @@ public class NotaItemTouchHelperCallback extends ItemTouchHelper.Callback {
     @Override
     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
 
-        new NotaDAO().troca(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+        Nota nota = dao.devolveNota(viewHolder.getAdapterPosition());
+        nota.setPosicao(target.getAdapterPosition());
+        dao.altera(nota);
         adapter.troca(viewHolder.getAdapterPosition(), target.getAdapterPosition());
         return true;
     }
@@ -34,7 +44,8 @@ public class NotaItemTouchHelperCallback extends ItemTouchHelper.Callback {
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
-        new NotaDAO().remove(viewHolder.getAdapterPosition());
+        Nota nota = dao.devolveNota(viewHolder.getAdapterPosition());
+        dao.remove(nota);
         adapter.remove(viewHolder.getAdapterPosition());
     }
 }

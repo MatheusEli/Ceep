@@ -213,7 +213,7 @@ public class ListaNotasActivity extends AppCompatActivity {
     }
 
     private void configuraItemTouchHelper(RecyclerView recyclerView) {
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new NotaItemTouchHelperCallback(adapter));
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new NotaItemTouchHelperCallback(adapter,this));
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 

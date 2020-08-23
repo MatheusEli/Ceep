@@ -16,6 +16,7 @@ public class Nota implements Serializable {
     private final String titulo;
     private final String descricao;
     private int corRes;
+    private int posicao;
 
     public Nota(String titulo, String descricao) {
         this.titulo = titulo;
@@ -45,5 +46,13 @@ public class Nota implements Serializable {
 
     public long getId() {
         return id;
+    }
+
+    public int getPosicao() {
+        return posicao;
+    }
+
+    public void setPosicao(int posicao) {
+        this.posicao = posicao;
     }
 }
