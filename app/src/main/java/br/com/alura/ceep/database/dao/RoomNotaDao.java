@@ -15,9 +15,9 @@ import br.com.alura.ceep.model.Nota;
 public interface RoomNotaDao {
 
     @Insert
-    void insere(Nota... notas);
+    void insere(Nota nota);
 
-    @Query("SELECT * FROM Nota ORDER BY id ASC")
+    @Query("SELECT * FROM Nota ORDER BY posicao ASC")
     List<Nota> todos();
 
     @Update(onConflict = OnConflictStrategy.REPLACE)

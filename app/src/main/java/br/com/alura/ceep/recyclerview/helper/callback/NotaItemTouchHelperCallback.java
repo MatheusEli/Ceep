@@ -53,12 +53,11 @@ public class NotaItemTouchHelperCallback extends ItemTouchHelper.Callback {
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
         Nota nota = dao.devolveNota(viewHolder.getAdapterPosition());
-        Toast.makeText(context, "Nome da Nota: "+nota.getTitulo()
-                +"\nDescrição da Nota: "+nota.getDescricao()
-                +"\nID da Nota: "+nota.getId()
-                +"\nPosição da Nota: "+nota.getPosicao(),
-                Toast.LENGTH_LONG).show();
+        Nota nota2 = dao.devolveNota((viewHolder.getAdapterPosition())+1);
+
         dao.remove(nota);
         adapter.remove(nota.getPosicao());
+
+        nota2.setPosicao(nota.getPosicao());
     }
 }
