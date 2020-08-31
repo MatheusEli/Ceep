@@ -16,13 +16,15 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-import androidx.room.Room;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import br.com.alura.ceep.R;
+import br.com.alura.ceep.asynctask.AlteraNotaTask;
+import br.com.alura.ceep.asynctask.BuscaNotasTask;
+import br.com.alura.ceep.asynctask.InsereNotaTask;
 import br.com.alura.ceep.database.CeepDataBase;
-import br.com.alura.ceep.database.dao.NotaDAO;
 import br.com.alura.ceep.database.dao.RoomNotaDao;
 import br.com.alura.ceep.model.Nota;
 import br.com.alura.ceep.recyclerview.adapter.ListaNotasAdapter;
@@ -43,7 +45,6 @@ public class ListaNotasActivity extends AppCompatActivity {
     private MenuItem gridIcon;
     private MenuItem linearIcon;
     private RecyclerView recyclerView;
-    private int corNota;
     private SharedPreferences shared;
     private SharedPreferences.Editor editor;
     private RoomNotaDao dao;
@@ -140,8 +141,16 @@ public class ListaNotasActivity extends AppCompatActivity {
         startActivityForResult(intent, NotaActivityConstantes.CODIGO_REQUISICAO_INSERE_NOTA);
     }
 
-    private List<Nota> pegaTodasNotas() {
-        return dao.todos();
+    private List<Nota> pegaTodasNotas(){
+        List<Nota> notas = null;
+        try {
+            notas = new BuscaNotasTask(dao).execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return notas;
     }
 
     @Override
@@ -172,8 +181,7 @@ public class ListaNotasActivity extends AppCompatActivity {
     }
 
     private void altera(Nota nota, int posicao) {
-        dao.altera(nota);
-        adapter.altera(posicao, nota);
+        new AlteraNotaTask(nota,posicao,adapter, dao).execute();
     }
 
     private boolean ePosicaoValida(int posicao) {
@@ -189,9 +197,7 @@ public class ListaNotasActivity extends AppCompatActivity {
     }
 
     private void adiciona(Nota nota) {
-        nota.setPosicao(posicaoContador);
-        dao.insere(nota);
-        adapter.adiciona(nota);
+        new InsereNotaTask(nota,dao,adapter, posicaoContador).execute();
         posicaoContador++;
     }
 

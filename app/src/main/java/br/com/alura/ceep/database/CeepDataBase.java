@@ -18,7 +18,6 @@ public abstract class CeepDataBase extends RoomDatabase {
 
     public static CeepDataBase getInstance(Context context){
 
-        return Room.databaseBuilder(context,CeepDataBase.class, NOME_BANCO_DE_DADOS)
-                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
+        return Room.databaseBuilder(context,CeepDataBase.class, NOME_BANCO_DE_DADOS).build();
     }
 }
