@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import br.com.alura.ceep.asynctask.RemoveNotaTask;
 import br.com.alura.ceep.database.CeepDataBase;
 import br.com.alura.ceep.database.dao.NotaDAO;
 import br.com.alura.ceep.database.dao.RoomNotaDao;
@@ -55,8 +56,8 @@ public class NotaItemTouchHelperCallback extends ItemTouchHelper.Callback {
         Nota nota = dao.devolveNota(viewHolder.getAdapterPosition());
         Nota nota2 = dao.devolveNota((viewHolder.getAdapterPosition())+1);
 
-        dao.remove(nota);
-        adapter.remove(nota.getPosicao());
+
+        new RemoveNotaTask(nota,adapter,dao).execute();
 
         nota2.setPosicao(nota.getPosicao());
     }
